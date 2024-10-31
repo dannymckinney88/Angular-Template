@@ -1,13 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router,RouterModule } from '@angular/router';
+import { HeaderComponent } from './components/header/header.component';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from "./auth/login/login.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
+  standalone:true,
+  imports: [RouterModule, HeaderComponent, CommonModule, LoginComponent, DashboardComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'my-app';
+  constructor(public router: Router) {}
+
+  isAuthRoute(): boolean {
+    return this.router.url === '/login' || this.router.url === '/register';
+  }
 }
